@@ -1,0 +1,13 @@
+{
+  "uuid": 0,
+  "targets": "/sensor/0",
+  "topic": "/filter/0",
+  "model": {
+    "variant": "KF",
+    "kwargs": {
+      "states": 1,
+      "observations": 1,
+      "burn": 100
+    }
+  }
+}

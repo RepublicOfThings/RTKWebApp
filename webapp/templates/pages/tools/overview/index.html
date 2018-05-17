@@ -1,0 +1,75 @@
+{% extends "common/layout.html" %}
+{% block content %}
+
+    <style>
+
+        .control_button:hover {
+            text-decoration: none;
+        }
+
+    </style>
+
+    {% load static %}
+    {% include "common/sidenav.html" %}
+    <link rel="stylesheet" href={% static "app/content/dash.css" %}>
+    <script src={% static "app/scripts/minotaur/table.js" %}></script>
+    {% include "common/api_status.html" %}
+    <div class="container-fluid">
+        <div class="row">
+            {% block sidenav %}{% endblock %}
+            {% block dashframe %}{% endblock %}
+            <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+                <div style="padding-top: 25px;">
+                    <h1>Overview</h1>
+                        <div class="row" style="padding-bottom: 60px;">
+                                <div class="col-md-12 table-responsive" id="table_container">
+                                </div>
+                        </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    {% block api_status_bar %}{% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+
+    <script>
+        var table = new TableBuilder("manager_table");
+        var rest = new RTKInterface(endpoint);
+
+        function translateStatus(status, html){
+            status = String(status);
+
+            var statuses = {
+                "0": ["Initialised", "primary"],
+                "1": ["Inactive", "warning"],
+                "2": ["Active", "success"],
+                "-1": ["Unitialised", "danger"]
+            };
+
+            if (html === true){
+                return "<span class='badge badge-"+statuses[status][1]+"'>"+statuses[status][0]+"</span>";
+            } else {
+                return statuses[status];
+            }
+        }
+
+        $(document).ready(function(){
+            setActivePage("overviewItem");
+            table.select("table_container");
+            table.addTable(["Name", "UUID", "Confidence", "Set Confidence", "Status", "Controls"], 0);
+            table.addClass("table table table-hover");
+            rest.getInstances(function(msg){
+                data = JSON.parse(msg).payload;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].id[0] === "f"){
+                        var status = translateStatus(data[i].status, true);
+                        var configTargetUrl = "{% url 'config_target_filter' instance='unknown' %}".replace(/unknown/, data[i].id);
+                        var control = "<a class='material-icons control_button' href='"+configTargetUrl+"'>settings</a>";
+                        table.addRow([data[i].name, data[i].id, "Calculating...", "Calculating...", status, control])
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

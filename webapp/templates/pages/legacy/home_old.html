@@ -1,0 +1,100 @@
+{% extends "common/layout.html" %}
+{% block content %}
+    <div class="container col-md-10" style="padding-top: 60px; padding-bottom: 60px;">
+        <div class="jumbotron" style="text-align: center; background: #FFF; padding-bottom: 10px;">
+            <h1 class="display-4">Republic ToolKit<h5><small>Data assurance for the Internet of Things.</small></h5></h1>
+            <p>Version <span class="badge badge-warning" id="version_no">Unknown</span>
+                |  API <span class="badge badge-warning" id="api_status">Offline</span>
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h4 class="card-header" style="text-align: center;">Get Started</h4>
+            <div class="card-block">
+
+                <h4 class="card-title">Deploy Filters</h4>
+                <h6 class="card-subtitle mb-2 text-muted">Start assuring your data flows.</h6>
+                <p class="card-text">RTK uses a range of intelligent filters to monitor data for anomalies and changing trends.
+                    It provides a dynamic assessment of the current assurance profile of data passing through filters.</p>
+                <div class="mr-2" role="group">
+                    <a class="card-link btn btn-primary" href={% url "config_filter" %}>   Show me   </a>
+                    <a class="card-link btn btn-secondary" href={% url "holding" %}>Learn more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Simulate Networks</h4>
+                <h6 class="card-subtitle mb-2 text-muted">Test filter configurations with simulated IoT networks.</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a class="card-link btn btn-primary" href={% url "monitor_visualise" %}>   Show me   </a>
+                <a class="card-link btn btn-secondary" href={% url "holding" %}>Learn more</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Deploy with Node-RED</h4>
+                <h6 class="card-subtitle mb-2 text-muted">Integrate RTK filters directly into your Node-RED flows.</h6>
+                <p class="card-text">RTK is built around a <strike>secure</strike> REST API that allows you to integrate it with your own applications
+                directly. We've provided a selection of nodes for Node-RED let you plug RTK nodes right into your flows.</p>
+                <a class="card-link btn btn-primary"href={% url "holding" %}>   Show me   </a>
+                <a class="card-link btn btn-secondary"  href={% url "holding" %} >Learn more</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Check out the code</h4>
+                <h6 class="card-subtitle mb-2 text-muted">At the heart of it all is the code.</h6>
+                <p class="card-text">RTK provides a public library in Python and JavaScript for interfacing with our REST API. We've made them available over here...</p>
+                <a class="card-link btn btn-primary"  href={% url "holding" %} >   Show me   </a>
+                <a class="card-link btn btn-secondary"  href={% url "holding" %}>Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    {% load static %}
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/rtk-tools.js" %}></script>
+
+    <script>
+
+        $(document).ready(function(){
+            updateStatusElements(["api_status"], ["version_no", "api_status"], ["version_no"], endpoint);
+            updateElementColors(["ui_status"], RTKDefaultColors("warning"));
+
+        });
+
+
+    </script>
+
+
+{% endblock %}
+
+<!--
+
+        <div class="col-md-3"></div>
+        <div class="jumbotron col-md-6">
+            <div class="container col-md-12">
+                <h2 class="display-4">Republic ToolKit<h5><small>Data assurance for the Internet of Things.</small></h5></h2>
+
+                <p>Version <span class="badge badge-warning" id="version_no">Unknown</span>
+                    /  API <span class="badge badge-warning" id="api_status">Offline</span>
+                    /  UI <span class="badge badge-warning" id="ui_status">Offline</span>
+                </p>
+
+            </div>
+
+        </div>
+        <div class="card" style="width: 20rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+--

@@ -1,0 +1,54 @@
+{% extends "common/layout.html" %}
+{% block content %}
+    {% load static %}
+    <div class="row" style="padding-top: 100px;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3>Service Controls</h3>
+            <hr>
+
+            <div class="card text-center">
+                <div class="card-header card-danger">
+                    Danger Zone
+                </div>
+                <div class="card-block">
+                    <h4 class="card-title">Force Quit</h4>
+                    <p class="card-text">Permanently delete all extant instances. This cannot be undone.</p>
+                    <p class="btn btn-danger" onclick="executeForceQuitCommand();">Execute</p>
+                </div>
+                <div class="card-block">
+                    <h4 class="card-title">Hard Reset</h4>
+                    <p class="card-text">Deletes and re-initialises all extant instances.</p>
+                    <p class="btn btn-danger" onclick="executeResetCommand();">Execute</p>
+                </div>
+                <div class="card-footer card-danger">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+    <script>
+        var rest = new RTKInterface(endpoint);
+        function executeResetCommand(){
+            if (confirm("Are you sure you want to execute this command?")){
+                var passCode = prompt("Enter your authorisation passcode to continue.");
+                rest.postHardReset(passCode, function(msg){
+                    alert(msg);
+                });
+            }
+        }
+
+        function executeForceQuitCommand(){
+            if (confirm("Are you sure you want to execute this command?")){
+                var passCode = prompt("Enter your authorisation passcode to continue.");
+                console.log(rest, endpoint);
+                rest.postForceQuit(passCode, function(msg){
+                    alert(msg);
+                });
+            }
+        }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "common/layout.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="container-fluid" style="padding-top: 80px;padding-bottom: 25px;">
+        <!-- embedded Splunk dashboard -->
+        <div id="hold" class="container-fluid">
+            <div class="jumbotron" style="text-align: center;">
+                <div class="container">
+                    <h1 class="display-4" style="color: #29255a;">Loading: {{ title }}</h1>
+                    <p style="color: #df197e;">Fetching your dashboard, this may take a couple of seconds.</p>
+                    <a class="btn btn-primary" style="background-color: #df197e; border-color: #df197e;" href={% url "home" %}>Cancel</a>
+                </div>
+            </div>
+        </div>
+        {% block frame %}{% endblock %}
+    </div>
+
+    <script>
+
+    $(document).ready(function(){
+       setTimeout(function(){
+           $("#hold").remove();
+           document.getElementById('frame').style.visibility = "visible";
+           }, 3500);
+    });
+
+    </script>
+
+{% endblock %}

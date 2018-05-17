@@ -1,0 +1,37 @@
+
+{% block basic_config_group %}
+<div class="form-group">
+            <h5>Basic Setup</h5>
+        </div>
+
+        <div class="form-group">
+            <label for="nicknameInput">Nickname</label>
+            <input type="text" class="form-control" id="nicknameInput" aria-describedby="filterNickname" placeholder="RTKFilter">
+            <small id="nicknameHelp" class="form-text text-muted">A custom label for the filter (does not have to be unique).</small>
+        </div>
+
+        <div class="form-group">
+            <label for="uuidInput">UUID</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">f:</div>
+                <input type="text" class="form-control" id="uuidInput" placeholder="UUID">
+            </div>
+            <small id="uuidHelp" class="form-text text-muted">A unique identifier for the filter.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="filterModel">Filter Model</label>
+            <select id="filterModel" class="form-control" disabled>
+                <option>Dynamic Bayesian Model (Basic)</option>
+            </select>
+            <small id="modelHelp" class="form-text text-muted">The type of model to use to filter your data.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="clientType">Client Type</label>
+            <select id="clientType" class="form-control" disabled>
+                <option>MQTT (default)</option>
+            </select>
+            <small id="clientTypeHelp" class="form-text text-muted">The type of client to handle filter I/O.</small>
+        </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% block sidenav %}
+
+        <style>
+            /*
+             * Base structure
+             */
+
+            /* Move down content because we have a fixed navbar that is 50px tall */
+            body {
+              padding-top: 50px;
+            }
+
+            /*
+             * Typography
+             */
+
+            h1 {
+              margin-bottom: 20px;
+              padding-bottom: 12px;
+              border-bottom: 1px solid #eee;
+            }
+        </style>
+
+        {% load static %}
+        <link rel="stylesheet" href={% static "app/content/sidebar.css" %}>
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+
+            <ul class="nav nav-pills flex-column">
+
+                <li class="nav-item">
+                    <a id="overviewItem" class="nav-link" href={% url "monitor_overview" %}>Overview</a>
+                </li>
+
+                <li class="nav-item">
+                    <a id="analysisItem" class="nav-link" href={% url "monitor_analysis" %}>Analytics</a>
+                </li>
+
+                <li class="nav-item">
+                    <a id="visualiseItem" class="nav-link" href={% url "monitor_visualise" %}>Visualise</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    <script>
+        function setActivePage(pageId){
+            $("#overviewItem").removeClass("active");
+            $("#analysisItem").removeClass("active");
+            $("#visualiseItem").removeClass("active");
+            $("#"+pageId).addClass("active");
+        }
+    </script>
+
+{% endblock %}

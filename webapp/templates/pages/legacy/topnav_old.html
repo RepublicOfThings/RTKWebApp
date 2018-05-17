@@ -1,0 +1,52 @@
+{% block navigation %}
+    {% load static %}
+
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+    <nav class="navbar navbar-nave navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand material-icons" href="/">extension</a>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="monitor_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Analysis</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown01">
+                      <a class="dropdown-item" href={% url "monitor_overview" %}>Overview</a>
+                      <a class="dropdown-item" href={% url "monitor_analysis" %}>Analytics</a>
+                      <a class="dropdown-item" href={% url "monitor_visualise" %}>Visualise</a>
+                  </div>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="monitor_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Instances</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown01">
+                      <a class="dropdown-item" href={% url "config_filter" %}>Filter</a>
+                      <a class="dropdown-item" href={% url "config_sensor" %}>Sensor</a>
+                  </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="monitor_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown01">
+                      <a class="dropdown-item" href={% url "admin_controls" %}>Services</a>
+                      <a class="dropdown-item" href={% url "manage_instances" %}>Instances</a>
+                  </div>
+              </li>
+          </ul>
+          <ul class="nav nav-pills float-right">
+              <li class="nav-item">
+                  {% if user.is_anonymous %}
+                    <a class="nav-link" style="color: #999;" href={% url "login" %}>Login</a>
+                  {% else %}
+                    <a class="nav-link" style="color: #999;" href={% url "logout" %}>Logout</a>
+                  {% endif %}
+              </li>
+          </ul>
+      </div>
+    </nav>
+
+{% endblock %}

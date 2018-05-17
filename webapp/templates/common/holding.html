@@ -1,0 +1,16 @@
+{% extends "common/layout.html" %}
+{% block content %}
+
+    <div style="padding-top: 70px;">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Oops, couldn't find that page!</h1>
+                <p>Looks like this page is offline for now. Check back soon.</p>
+                <a class="btn btn-rtk" href={% url "home" %}>Take me home!</a>
+            </div>
+        </div>
+        <div id="embed-target"></div>
+
+    </div>
+
+{% endblock %}

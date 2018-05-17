@@ -1,0 +1,22 @@
+{% block api_status_bar %}
+    {% load static %}
+    {% block footer %}
+        <nav class="navbar fixed-bottom navbar-inverse bg-inverse" style="height: 33px;">
+            <small style="color: white; text-align: center;">Version <span class="badge badge-warning" id="version_no">Unknown</span>
+                |  API <span class="badge badge-warning" id="api_status">Offline</span>
+            </small>
+        </nav>
+    {% endblock %}
+
+    <script>
+
+        $(document).ready(function(){
+            updateStatusElements(["api_status"], ["version_no", "api_status"], ["version_no"], endpoint);
+            updateElementColors(["ui_status"], RTKDefaultColors("warning"));
+        });
+
+
+    </script>
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/rtk-tools.js" %}></script>
+{% endblock %}

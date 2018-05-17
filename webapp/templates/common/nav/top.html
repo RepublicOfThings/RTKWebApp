@@ -1,0 +1,52 @@
+{% block navigation %}
+    {% load static %}
+
+    <nav class="navbar navbar-nave navbar-toggleable-md navbar-inverse fixed-top bg-inverse" style="background: #454545;">
+
+      <a class="navbar-brand material-icons" href="/">extension</a>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
+          <ul class="navbar-nav mr-auto">
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  style="color: #FFF;" href="#" id="monitor_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Launch</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown02">
+                      <a class="dropdown-item" href={% url "config_filter" %}>Filter</a>
+                      <a class="dropdown-item" href={% url "config_sensor" %}>Sensor</a>
+                  </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  style="color: #FFF;" href="#" id="manage_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown03">
+                      <a class="dropdown-item" href={% url "manage_instances" %}>Instances</a>
+                      <a class="dropdown-item" href={% url "admin_controls" %}>Service</a>
+                  </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  style="color: #FFF;" href="#" id="monitor_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tools</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown01">
+                      <a class="dropdown-item" href={% url "monitor_overview" %}>Overview</a>
+                      <a class="dropdown-item" href={% url "monitor_analysis" %}>Analytics</a>
+                      <a class="dropdown-item" href={% url "monitor_visualise" %}>Visualise</a>
+                  </div>
+              </li>
+
+          </ul>
+
+
+          <ul class="nav navbar-nav float-right">
+
+              <li class="nav-item disabled">
+                  <a class="nav-link disabled" style="color: #999;" href="#">Login</a>
+              </li>
+
+          </ul>
+
+      </div>
+
+    </nav>
+
+{% endblock %}

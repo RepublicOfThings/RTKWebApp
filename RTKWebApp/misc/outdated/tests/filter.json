@@ -1,0 +1,10 @@
+{
+  "id": "d5d8a564-c005-4337-9fb6-bb091d2d1cec",
+  "type": "RTKFilter",
+  "broker": {"host": "localhost", "port": 1883},
+  "publish_to": "filters/RTK:d5d8a564-c005-4337-9fb6-bb091d2d1cec",
+  "subscribe_to": ["sensors/RTK:468a1687-0829-4e6b-a5b6-cb98dfa62509"],
+  "measurements": {
+    "temperature": {"dims": "F"}
+  }
+}

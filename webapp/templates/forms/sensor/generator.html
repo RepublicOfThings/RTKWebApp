@@ -1,0 +1,27 @@
+{% block generator_config_group %}
+
+    <div class="form-group">
+        <h5>Simulation Setup</h5>
+        <small>Configure the simulated sensor.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="waitInput">Time Step (Δt)</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="text" class="form-control" id="waitInput" placeholder="0.5">
+        </div>
+        <small id="optHelp" class="form-text text-muted">The time in seconds between simulated readings.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="optInput">Select Data File</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <label class="custom-file">
+                <input type="file" id="fileInput" class="custom-file-input" value="Choose CSV File...">
+                <span class="custom-file-control"></span>
+            </label>
+        </div>
+        <small id="optHelp" class="form-text text-muted">A data file in .csv format.</small>
+    </div>
+
+{% endblock %}

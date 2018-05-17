@@ -1,0 +1,55 @@
+{% block mqtt_config_group %}
+    <div class="form-group">
+        <h5>Client Setup</h5>
+    </div>
+        <div class="form-group">
+            <label for="hostInput">Host</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <input type="text" class="form-control" id="hostInput" placeholder="iot.eclipse.org">
+            </div>
+            <small id="hostHelp" class="form-text text-muted">The host of the MQTT broker.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="portInput">Port</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <input type="text" class="form-control" id="portInput" placeholder="1883">
+            </div>
+            <small id="portHelp" class="form-text text-muted">The target port of the MQTT broker.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="subInput">Subscribe (Input)</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">s:</div>
+                <input type="text" class="form-control" id="subInput" placeholder="UUID">
+            </div>
+            <small id="subHelp" class="form-text text-muted">An MQTT topic to subscribe to. </small>
+        </div>
+
+        <div class="form-group">
+            <label for="pubInput">Publish (Output)</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" id="inputPublishPrefix">f:</div>
+                <input type="text" class="form-control" id="pubInput" placeholder="UUID">
+            </div>
+            <small id="pubHelp" class="form-text text-muted">An MQTT topic to publish to.</small>
+        </div>
+    <script>
+
+        var getClientConfig = function (){
+            // console.log(getInputValue("subInput"), $("#subInput").val());
+
+            return {
+                host: getInputValue("hostInput"),
+                port: getInputValue("portInput"),
+                userdata: null,
+                transport: "tcp",
+                subscriptions: [{topic: "/rtk/mqtt/s:"+getInputValue("subInput"), qos:2}],
+                topics: ["/rtk/mqtt/"+$("#inputPublishPrefix").text()+getInputValue("pubInput")],
+                clean_session: true,
+                protocol: 4
+            }
+        }
+    </script>
+{% endblock %}

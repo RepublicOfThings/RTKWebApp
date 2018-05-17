@@ -1,0 +1,92 @@
+{% extends "common/layout.html" %}
+{% block content %}
+    {% load static %}
+
+    {% include "common/sidenav.html" %}
+    <link rel="stylesheet" href={% static "app/content/dash.css" %}>
+    {% include "common/api_status.html" %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            {% block sidenav %}{% endblock %}
+            {% block dashframe %}{% endblock %}
+
+            <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+                <div style="padding-top: 25px;">
+                    <h1>Visualise</h1>
+                    <div style="text-align: center;">
+                        <!--<h1 class="material-icons" style="font-size: 200px; color: #ffbb33">share</h1>
+                        <h3>Visualisation View is unavailable.</h3>-->
+                        <div id="network_view"></div>
+
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    {% block api_status_bar %}{% endblock %}
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src={% static "app/scripts/rtk-js/rtk-mqtt.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/rtk-app.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+    <script src={% static "app/scripts/misc/view.js" %}></script>
+    <script src={% static "app/scripts/misc/graph.js" %}></script>
+    <script>
+        var rest = new RTKInterface(endpoint);
+        var statuses = {
+                "0": ["Initialised", "primary"],
+                "1": ["Inactive", "warning"],
+                "2": ["Active", "success"],
+                "-1": ["Unitialised", "danger"]
+            };
+
+        $(document).ready(function(){
+            setActivePage("visualiseItem");
+            rest.getInstanceIds(function(response){
+                response = JSON.parse(response);
+                payload = response.payload;
+                graph.addNode("Hub", 100, 100, 10);
+                graph.setNodeStyle("Hub", "fill", RTKDefaultColors("success"));
+                var edgeBuffer = [];
+                for (var i = 0; i < payload.length; i++){
+                    var statusInfo = statuses[String(payload[i].status)];
+
+                    if (graph.getNode(payload[i].id) === undefined){
+                        graph.addNode(payload[i].id, 100, 100, 10);
+                    }
+
+                    graph.setNodeStyle(payload[i].id, "stroke", RTKDefaultColors(statusInfo[1]));
+                    graph.setNodeStyle(payload[i].id, "stroke-width", 2);
+
+                    if (payload[i].id[0] === "f"){
+
+                        graph.setNodeStyle(payload[i].id, "fill", "#889");
+                        graph.addEdge(payload[i].id, "Hub");
+                        graph.setEdgeStyle(String(payload[i].id)+"_Hub", "stroke-width", 3);
+                        graph.setEdgeStyle(String(payload[i].id)+"_Hub", "stroke", RTKDefaultColors(statusInfo[1]));
+                        rest.getInstanceInputs(String(payload[i].id), function(response){
+                            response = JSON.parse(response).payload;
+                            var topic = response.inputs[0];
+                            topic = topic.slice("/rtk/mqtt/".length, topic.length);
+                            if (graph.getNode(topic) === undefined){
+                                graph.addNode(topic, 100, 100, 10);
+                            }
+                            graph.addEdge(topic, response.id);
+                            graph.setEdgeStyle(topic+"_"+response.id, "stroke-width", 3);
+                            // graph.setEdgeStyle(topic+"_"+response.id, "stroke", "#003F99");
+
+                        });
+                    } else {
+                        graph.setNodeStyle(payload[i].id, "fill", "#898");
+                    }
+                }
+
+            });
+            graph.toggleInteractive();
+        });
+        var graph = new GraphView("network_view", screen.height-200, document.getElementById("network_view").clientWidth);
+    </script>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% block navigation %}
+    {% load static %}
+    <!--navbar-light -->
+    <nav class="navbar navbar-toggleable-md fixed-top navbar-light nav-bar-rtk">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/" style="padding: 0">
+                <img class="navbar-brand align-top img-responsive" style="max-height: 60px; max-width: 120px;" src={% static "app/SmEILing.png" %}>
+            </a>
+        </div>
+        <!--<div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                <img class="navbar-brand align-top img-responsive" style="max-height: 30px;" src={% static "app/city_verve_logo_resize_2.png" %}>
+            </a>
+        </div>-->
+        <div class="collapse navbar-collapse" id="mainNavigation">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item nav-item-rtk">
+                    <a class="nav-link nav-link-rtk" href="{% url "home" %}">Home</a>
+                </li>
+                <li class="dropdown nav-item-rtk">
+                    <a href="#" class="dropdown-toggle nav-link nav-link-rtk" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dashboards <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url "dashboard" %}">Connected Homes</a></li>
+                        <li><a class="dropdown-item" href="{% url "alerts" %}">Incident Posture</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item nav-item-rtk">
+                    <a class="nav-link nav-link-rtk" href="{% url "contact" %}">Contact</a>
+                </li>
+            </ul>
+            <ul class="nav nav-pills float-right">
+                <li class="nav-item">
+                    {% if user.is_anonymous %}
+                        <a class="nav-link material-icons nav-item-rtk" href={% url "login" %}>account_circle</a>
+                    {% else %}
+                        <a class="nav-link material-icons nav-item-rtk" href={% url "logout" %}>input</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}

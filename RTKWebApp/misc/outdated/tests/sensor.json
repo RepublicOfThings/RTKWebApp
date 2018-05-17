@@ -1,0 +1,8 @@
+{
+  "id": "468a1687-0829-4e6b-a5b6-cb98dfa62509",
+  "config": {
+    "address": "localhost:8888",
+    "path": "ws",
+    "header": {"socket": "thing"}
+  }
+}

@@ -1,0 +1,18 @@
+
+{% block forbidden %}
+
+    <div class="container col-md-10" style="padding-top: 60px; padding-bottom: 60px;">
+        <div class="jumbotron" style="text-align: center; background: #eee; padding-bottom: 10px;">
+            <p class="material-icons text-danger" style="font-size: 100px;">warning</p>
+            <h1>403</h1>
+            <p style="padding-top: 10px; padding-bottom: 10px;">You do not currently have permission to view this page. Login to continue.</p>
+
+            <div class="row">
+                <div class="col-md-4"></div>
+                <a class="btn btn-primary col-md-4" style="background-color: #df197e; border-color: #df197e;" href="{% url 'login' %}">Login</a>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

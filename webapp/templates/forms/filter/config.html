@@ -1,0 +1,110 @@
+{% block configuration %}
+    {% load static %}
+
+    <form id="filterConfig">
+
+        {% include "forms/filter/basic.html" %}
+        {% block basic_config_group %}{% endblock %}
+        <hr>
+
+        {% include "forms/client_config/mqtt_config.html" %}
+        {% block mqtt_config_group %}{% endblock %}
+        <hr>
+        {% include "forms/filter/kalman.html" %}
+        {% block kalman_config_group %}{% endblock %}
+
+        <hr>
+        <div class="form-group">
+            <h5>Instance Controls</h5>
+        </div>
+
+        <div class="text-center">
+
+            <p class="btn btn-info col-md-2" onclick="createFilterInstance()" id="createFilterButton">Deploy </p>
+
+            <p class="btn btn-success col-md-2" onclick="startFilterInstance()" id="startFilterButton">Start </p>
+
+            <p class="btn btn-warning col-md-2" onclick="stopFilterInstance()" id="stopFilterButton">Stop </p>
+
+            <!--<div></div>-->
+
+            <p class="btn btn-primary col-md-2" onclick="updateFilterInstance()" id="updateFilterButton">Update</p>
+
+            <p class="btn btn-danger col-md-2" onclick="deleteFilterInstance()" id="deleteFilterButton">Delete</p>
+
+            <hr>
+            <a class="btn btn-primary col-md-4" id="doneButton" href="{% url 'manage_instances' %}">Done</a>
+
+        </div>
+
+    </form>
+
+    <script src={% static "app/scripts/rtk-js/rtk-app.js" %}></script>
+    <script>
+        console.log("{{ endpoint }}", endpoint);
+        var app = new RTKApp("{{ endpoint }}");
+        var uuid = "{{ id }}";
+
+        $(document).ready(function(){
+            app.currentFilter = new RTKFilterHelper(app.api, true);
+
+            if (uuid === "None"){
+                updateUUIDFields(['uuidInput', 'pubInput']);
+            } else {
+                getFilter().status(undefined, uuid, function(msg){msg = JSON.parse(msg); getFilter().updateConfigForm(msg.payload.config);});
+            }
+
+        });
+
+        function getFilter(){
+            return app.currentFilter || new RTKFilterHelper(app.api, true);
+        }
+
+        function currentId(){
+            return "{{ id }}";
+        }
+
+        function createFilterInstance(){
+            getFilter().refreshConfig();
+            getFilter().create("filter", app.api, undefined, true);
+            reload();
+        }
+
+        function startFilterInstance(){
+            getFilter().refreshConfig();
+            getFilter().start(currentId(), app.api, undefined, true);
+        }
+
+        function stopFilterInstance(){
+            getFilter().refreshConfig();
+            getFilter().stop(currentId(), app.api, undefined, true);
+        }
+
+        function deleteFilterInstance(){
+            getFilter().refreshConfig();
+            getFilter().kill(currentId(), app.api, undefined, true);
+            app.forceRedirect('{% url 'manage_instances'%}');
+        }
+
+        function updateFilterInstance(){
+            getFilter().refreshConfig();
+            // console.log(getFilter().getConfig(), "prefingers");
+            getFilter().update(currentId(), app.api, undefined, true);
+            // reload();
+        }
+
+        function reload(){
+            var url = '{% url 'config_target_filter' instance='unknown' %}';
+            url = url.replace("unknown", getFilter().getConfig().id);
+            app.forceRedirect(url);
+        }
+
+    </script>
+
+    <script src={% static "app/scripts/rtk-js/config/rtk-filter-config.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/config/rtk-client-config.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/config/rtk-pipe-config.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/utils/rtk-forms.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/rtk-tools.js" %}></script>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{
+  "uuid": "892f9739-182d-40f6-98eb-186c6c41f0ea",
+  "launch": true,
+  "mqtt": {
+    "publish": ["/sensor/892f9739-182d-40f6-98eb-186c6c41f0ea"],
+    "subscribe": [],
+    "listen": false,
+    "broker": {
+      "address": "localhost",
+      "port": 1883
+    }
+  },
+  "sensor": {
+    "loc": 0.0,
+    "scale": 1.0,
+    "units": "F"
+  }
+}

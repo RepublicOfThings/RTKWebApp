@@ -1,0 +1,18 @@
+{% block footer %}
+    {% load static %}
+            <nav class="navbar fixed-bottom navbar-toggleable-md navbar-light nav-bar-rtk ">
+                <div class="collapse navbar-collapse" id="secondaryNavigation">
+                    <ul class="navbar-nav mr-auto">
+                        <a class="nav-link" href="http://www.republicofthings.com" style="font-size: 10px; padding-top: 8px;">&copy; Republic of Things 2017 in partnership with CityVerve | Confidential | {{ version }} </a>
+                    </ul>
+                    <ul class="nav nav-pills float-right">
+                        <a class="navbar-brand mr-auto" href="http://www.republicofthings.com" style="padding: 0; margin-top: 0">
+                            <img class="navbar-brand align-top img-responsive" style="max-height: 28px;" src={% static "app/republic_logo_small.png" %}>
+                        </a>
+                        <a class="navbar-brand mr-auto" href="http://www.republicofthings.com" style="padding: 0; margin-top: 0">
+                            <img class="navbar-brand align-top img-responsive" style="max-height: 28px;" src={% static "app/city_verve_logo_resize_2.png" %}>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+{% endblock %}

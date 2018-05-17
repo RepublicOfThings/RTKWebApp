@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        {% load static %}
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+        <title>SmEILing™ - {{ title }}</title>
+
+        <link rel="shortcut icon" href={% static "app/favicon.png" %} />
+        <link rel="stylesheet" href={% static "app/content/rtk.css" %} />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  <!--NavBar & Misc Icons-->
+        <link rel="apple-touch-icon" href={% static "app/favicon.png" %}>
+        <link
+                rel="stylesheet"
+                href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+                integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+                crossorigin="anonymous">
+
+        <script
+              src="https://code.jquery.com/jquery-3.2.1.min.js"
+              integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+              crossorigin="anonymous">
+        </script>
+
+        <!-- tether.js is used by Bootstrap's ToolTips. -->
+        <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+                integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+                crossorigin="anonymous">
+        </script>
+
+        <script
+                src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+                integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+                crossorigin="anonymous">
+        </script>
+
+    </head>
+
+    {% include "common/footer.html" %}
+    <body class="background-primary-rtk">
+        {% include "common/topnav.html" %}
+        {% block navigation %}{% endblock %}
+
+        <div>
+            {% if user.is_anonymous %}
+                <script>
+                    // redirect
+                    window.location.href = "{% url 'login' %}";
+                </script>
+            {% endif %}
+            {% if page.title == "login"%}
+                {% include "registration/login.html" %}
+                {% block login %}{% endblock %}
+            {% else %}
+                <!-- user is authenticated, generate & serve page -->
+                {% block content %}{% endblock %}
+            {% endif %}
+
+            {% block footer %}{% endblock %}
+        </div>
+
+    </body>
+
+</html>

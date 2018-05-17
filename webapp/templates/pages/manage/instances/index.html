@@ -1,0 +1,85 @@
+{% extends "common/layout.html" %}
+{% block content %}
+    {% load static %}
+
+    <style>
+
+        .control_button:hover {
+            text-decoration: none;
+        }
+
+    </style>
+
+    <script src={% static "app/scripts/rtk-js/rtk-tools.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/app/rtk-manage.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+    <script src={% static "app/scripts/minotaur/table.js" %}></script>
+    <div class="container" style="padding-bottom: 60px;">
+    <div class="row" style="padding-top: 100px; padding-bottom: 60px;">
+        {% include "common/api_status.html" %}
+        {% block api_status_bar %}{% endblock %}
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h3>Manage Instances</h3>
+            <hr>
+            <div class="col-md-12" id="table_container">
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 text-center">
+            <p class="btn btn-success col-md-3" onclick="rest.postStartInstances(function(msg){location.reload()});">Launch All</p>
+            <p class="btn btn-warning col-md-3" onclick="rest.postStopInstances(function(msg){location.reload()});">Stop All</p>
+            <p class="btn btn-danger col-md-3" onclick="rest.postDeleteInstances(function(msg){location.reload()});">Terminate All</p>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        var table = new TableBuilder("manager_table");
+        var rest = new RTKInterface(endpoint);
+
+        function translateStatus(status, html){
+            status = String(status);
+            var statuses = {
+                "0": ["Initialised", "primary"],
+                "1": ["Inactive", "warning"],
+                "2": ["Active", "success"],
+                "-1": ["Unitialised", "danger"]
+            };
+
+            if (html === true){
+                return "<span class='badge badge-"+statuses[status][1]+"'>"+statuses[status][0]+"</span>";
+            } else {
+                return statuses[status];
+            }
+
+        }
+
+        /*
+        function smooth(){
+            console.log("DELETE")
+        }
+        */
+
+        table.select("table_container");
+        table.addTable(["Name", "UUID", "Status", "Controls"], 0);
+        table.addClass("table table table-hover");
+        rest.getInstances(function(msg){
+                data = JSON.parse(msg).payload;
+
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].id[0] === "f"){
+                        addInstanceRow(rest, table, data[i], "{% url 'config_target_filter' instance='unknown' %}");
+                    } else {
+                        addInstanceRow(rest, table, data[i], "{% url 'config_target_sensor' instance='unknown' %}");
+                    }
+                }
+        });
+
+    </script>
+
+{% endblock %}

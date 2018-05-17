@@ -1,0 +1,47 @@
+{% block kalman_config_group %}
+
+    <div class="form-group">
+        <h5>Filter Model Setup</h5>
+    </div>
+
+    <div class="form-group">
+        <label for="burnInput">Optimisation Instances</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="text" class="form-control" id="burnInput" placeholder="0">
+        </div>
+        <small id="optHelp" class="form-text text-muted">The number of data instances to use for filter optimisation.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="obsInput">Observation States</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="text" class="form-control" id="obsInput" placeholder="1">
+        </div>
+        <small id="obsHelp" class="form-text text-muted">The dimensionality of the input space.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="hidInput">Hidden States</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="text" class="form-control" id="hidInput" placeholder="1">
+        </div>
+        <small id="hiddenHelp" class="form-text text-muted">The dimensionality of the hidden (output) space.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="procInput">Process Noise</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="text" class="form-control" id="procInput" placeholder="1.0">
+        </div>
+        <small id="measureHelp" class="form-text text-muted">The (estimated) process noise in the data.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="measInput">Measurement Noise</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input type="text" class="form-control" id="measInput" placeholder="1.0">
+        </div>
+        <small id="measureHelp" class="form-text text-muted">The measurement resolution.</small>
+    </div>
+
+{% endblock %}

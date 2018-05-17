@@ -1,0 +1,125 @@
+{% block configuration %}
+
+    {% load static %}
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+
+    <form>
+
+        {% include "forms/sensor/basic.html" %}
+        {% block basic_config_group %}{% endblock %}
+        <hr>
+
+        {% include "forms/client_config/mqtt_config.html" %}
+        {% block mqtt_config_group %}{% endblock %}
+        <hr>
+        {% include "forms/sensor/generator.html" %}
+        {% block generator_config_group %}{% endblock %}
+
+        <hr>
+        <div class="form-group">
+            <h5>Instance Controls</h5>
+        </div>
+
+        <div class="text-center">
+            <p class="btn btn-info col-md-2" onclick="createSensorInstance();" id="createSensorButton">Deploy</p>
+            <p class="btn btn-success col-md-2" onclick="startSensorInstance();" id="startSensorButton">Start</p>
+            <p class="btn btn-warning col-md-2" onclick="stopSensorInstance();" id="stopSensorButton">Stop</p>
+            <p class="btn btn-danger col-md-2" onclick="deleteSensorInstance();" id="deleteSensorButton">Terminate</p>
+            <p class="btn btn-primary col-md-2" onclick="updateSensorInstance();" id="updateFilterButton">Update</p>
+            <hr>
+            <a class="btn btn-primary col-md-4" id="doneButton" href="{% url 'manage_instances' %}">Done</a>
+        </div>
+
+    </form>
+
+    {% load static %}
+
+    <script src={% static "app/scripts/rtk-js/rtk-app.js" %}></script>
+
+    <script>
+        var app = new RTKApp("{{ endpoint }}");
+        var uuid = "{{ id }}";
+        $(document).ready(function(){
+            modifyForm();
+
+            app.currentSensor = new RTKSensorHelper(app.api, true, undefined);
+
+            if (uuid === "None"){
+                updateUUIDFields(['uuidInput', 'pubInput']);
+            } else {
+                getSensor().status(undefined, uuid, function(msg){msg = JSON.parse(msg); getSensor().updateConfigForm(msg.payload.config);});
+            }
+
+        });
+
+        $("#fileInput").on("change", function(event){
+            sensor = app.currentSensor || new RTKSensorHelper(app.api, true);
+            sensor.loadData(event, true);
+        });
+
+        function getSensor(){
+            console.log(app.api);
+            return app.currentSensor || new RTKSensorHelper(app.api, true);
+        }
+
+        function currentId(){
+            return "{{ id }}";
+        }
+
+        function createSensorInstance(){
+            getSensor().refreshConfig();
+            getSensor().create("sensor", undefined, undefined);
+            redirect()
+        }
+
+        function startSensorInstance(){
+            getSensor().refreshConfig();
+            getSensor().start(currentId(), undefined, undefined, true);
+        }
+
+        function stopSensorInstance(){
+            getSensor().refreshConfig();
+            getSensor().stop(currentId(), undefined, undefined, true);
+        }
+
+        function deleteSensorInstance(){
+            getSensor().refreshConfig();
+            getSensor().kill(currentId(), undefined, undefined, true);
+            app.forceRedirect('{% url 'manage_instances'%}');
+        }
+
+        function updateSensorInstance(){
+            getSensor().refreshConfig();
+            getSensor().update(currentId(), undefined, undefined, true);
+            redirect();
+        }
+
+        function redirect(){
+            var url = '{% url 'config_target_sensor' instance='unknown' %}';
+            url = url.replace("unknown", getSensor().getConfig().id);
+            app.forceRedirect(url);
+        }
+
+        function modifyForm(){
+            $("#subInput").attr("disabled", true);
+            $("#inputPublishPrefix").text("s:");
+        }
+
+    </script>
+
+    <script src={% static "app/scripts/rtk-js/rtk-api-0.1.9.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/config/rtk-sensor-config.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/config/rtk-client-config.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/config/rtk-generator-config.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/utils/rtk-forms.js" %}></script>
+    <script src={% static "app/scripts/rtk-js/rtk-tools.js" %}></script>
+
+    {% if id == None %}
+        <script>
+            $(document).ready(function(){
+                updateUUIDFields(['uuidInput', 'pubInput']);
+            });
+        </script>
+    {% endif %}
+
+{% endblock %}

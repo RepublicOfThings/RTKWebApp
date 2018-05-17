@@ -1,0 +1,422 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import json
+from tornado.ioloop import IOLoop, PeriodicCallback
+from tornado import gen
+from tornado.websocket import websocket_connect
+
+
+class Client(object):
+    def __init__(self, url, timeout):
+        self.url = url
+        self.timeout = timeout
+        self.ioloop = IOLoop.instance()
+        self.ws = None
+        self.connect()
+        self.ioloop.start()
+        PeriodicCallback(self.keep_alive, 20000, io_loop=self.ioloop).start()
+
+    @gen.coroutine
+    def connect(self):
+        print "trying to connect"
+        try:
+            self.ws = yield websocket_connect(self.url)
+        except Exception, e:
+            print(e)
+            print "connection error"
+        else:
+            print "connected"
+            self.run()
+
+    @gen.coroutine
+    def run(self):
+        while True:
+            self.ws.request.headers["Socket"] = "thing"
+            print(self.ws.request.headers)
+            msg = yield self.ws.write_message(json.dumps({"boom":True, "data": {"cid": -1}}))
+            print("MSG OF DOOM")
+            if msg is None:
+                print "connection closed"
+                self.ws = None
+                break
+
+    def keep_alive(self):
+        if self.ws is None:
+            self.connect()
+        else:
+            print("HELLOOOOO")
+            pass
+
+if __name__ == "__main__":
+    client = Client("ws://localhost:8888/ws", 5)
+
+
+
+class RTKSensor(object):
+    def __init__(self):
+        self._client = None
+        self._generator = None
+
+    def _setup(self):
+        pass
+
+    def start(self):
+        pass
+
+    def to_json(self):
+        pass
+
+    def from_json(self):
+        pass
+
+
+sensor = RTKMQTTSensor(sensor_id="c784102938",
+                       host="iot.eclipse.org",
+                       delay=1.0,
+                       generator=generators.DataGenerator,
+                       config={"path": "./apt15074_sensor.csv"})
+#sensor.run()
+
+
+data = {
+        "sensor_id": str(uuid.uuid4()),
+        "type": "mqtt",
+        "setup": {
+                "delay": 1.0,
+                "host": "iot.eclipse.org",
+                "topic_fmt": "rtk/sensor/{0}"
+            },
+        "generator": {
+                "model": "historical",
+                "config": {"path": "./apt15074_sensor.csv"}
+            }
+
+    }
+
+# load_sensor("mqtt_sensor_config.json")
+
+# json.dump(data, open("mqtt_sensor_config.json", "w"), indent=4)
+
+# from rtk.sensors import RTKSensor
+# import uuid
+import json
+from rtk.filters.pipes.kalman import KalmanPipe
+from rtk.core import generators
+from apogee import KalmanFilter as KFilter
+import time
+# data = json.dumps(json.load(open("./data/measurement.json")))
+
+from pykalman import KalmanFilter
+import numpy as np
+import matplotlib.pyplot as plt
+
+state = np.random.RandomState(0)
+data = state.rand(100)
+
+apk = KFilter()
+pyk = KalmanFilter(n_dim_obs=1, n_dim_state=1)
+
+plt.plot(data)
+plt.plot(apk.filter(data), "r--")
+plt.plot(pyk.filter(data)[0], "k--")
+plt.show()
+
+
+#p = KalmanPipe(0, dims=2, odims=2)
+#for element in generators.DataGenerator("./data/apt15074_sensor.csv").start():
+#    element = models.ApartmentReading(element).to_json()
+#    p.pipe(element)
+    # print element
+    #time.sleep(0.1)
+
+# s = RTKSensor.from_json(open("./data/config.json").read())
+# s.start()
+
+"""
+
+{
+    "urn": "0028b6ae-01c7-4e56-9657-8c10a9e723ac",
+
+    "readings": [
+        {
+            "id": "m:af2d22b8-f9cd-4bee-aa7a-5c07c5266cb4",
+            "value": 93.2,
+            "units": "F",
+            "time": "01-01-2001 00:00:01.001"
+        },
+        {
+            "id": "m:7efcf03d-52a8-457a-a8a1-a38a142ab713",
+            "value": 34.0,
+            "units": "C",
+            "time": "01-01-2001 00:00:01.001"
+        },
+    ],
+
+    "meta": {
+        "assurance":
+            {
+                "id": "f:0028b6ae-01c7-4e56-9657-8c10a9e723ac",
+                "time": "01-01-2001 00:00:01.005",
+                "status": 0,
+                "p": 0.87
+            }
+    }
+
+    "geo": [
+        51.4994794,
+        -0.1248092,
+        "17.0z"
+    ]
+}
+
+"""
+
+
+class Measurement(object):
+    def __init__(self):
+        pass
+# from rtk.core import RTKMQTTClient
+from rtk.api.app import RTKRESTApplication
+
+import json
+from requests import Session
+
+# creating and launching an RTKFilter instance using the web API.
+filter_config = json.load(open("./data/filter.json"))
+JSON = json.dumps
+
+rtk = Session()
+# rtk.post("https://localhost:8883/rtk/api/auth/", params=JSON({"username": "admin", "password": "scrimshaw"}))
+rtk.post("http://localhost:8883/rtk/api/create/filter/", data=JSON(filter_config))
+rtk.post("http://localhost:8883/rtk/api/launch/filter/", data=JSON({"id": filter_config["id"]}))
+# rtk.get("http://localhost:8883/rtk/api/status/filter/", data=JSON({"id": filter_config["id"]}))
+
+
+# c = RTKMQTTClient(client_id="Listener0", host="iot.eclipse.org", port=1883)
+# c.subscribe("/rtk/mqtt/f:e2ddaccf-710c-48ca-a602-95a5e590ac6a")
+# c.run_forever()
+
+
+a = str(uuid.uuid4())
+b = str(uuid.uuid4())
+c = str(uuid.uuid4())
+d = str(uuid.uuid4())
+
+host = "iot.eclipse.org"
+port = 1883
+path = "./data/apt15074_sensor.csv"
+
+r.add("sensor",
+      id=a,
+      client={"client_id":
+              "s:{0}".format(a), "host": host, "port": port, "topics": ["/rtk/mqtt/s:{0}".format(a)]},
+      generator={"path": path})
+
+r.add("sensor",
+      id=b,
+      client={"client_id":
+              "s:{0}".format(b),"host": host, "port": port, "topics": ["/rtk/mqtt/s:{0}".format(b)]},
+      generator={"path": path})
+
+r.add("filter",
+      id=c,
+      filter_type="kalman",
+      client={"client_id": "f:{0}".format(c),
+              "host": host,
+              "port": port,
+              "subscriptions": [{"topic": "/rtk/mqtt/s:{0}".format(a), "qos": 0}],
+              "topics": ["/rtk/mqtt/f:{0}".format(c)]},
+      filter={"burn": 10, "n": 2, "m": 2, "qs": 5.0, "rs": 1e-2})
+
+r.add("filter",
+      id=d,
+      filter_type="kalman",
+      client={"client_id": "f:{0}".format(d),
+              "host": host,
+              "port": port,
+              "subscriptions": [{"topic": "/rtk/mqtt/s:{0}".format(b), "qos": 0}],
+              "topics": ["/rtk/mqtt/f:{0}".format(d)]},
+      filter={"burn": 10, "n": 2, "m": 2, "qs": 5.0, "rs": 1e-2})
+
+print r.to_json(path="./data/network.json", indent=4)
+
+
+import json
+from requests import Session
+import time
+# creating and launching an RTKSensor-<RTKFilter instance using the web API.
+
+
+class RTKAPI(object):
+    def __init__(self):
+        pass
+
+
+filter_config = json.load(open("./data/filter.json"))
+sensor_config = json.load(open("./data/sensor.json"))
+JSON = json.dumps
+
+rtk = Session()
+rtk.post("http://localhost:8883/rtk/api/create/sensor/", data=JSON(sensor_config)).content
+rtk.post("http://localhost:8883/rtk/api/launch/sensor/", data=JSON({"id": sensor_config["id"]})).content
+rtk.post("http://localhost:8883/rtk/api/create/filter/", data=JSON(filter_config)).content
+rtk.post("http://localhost:8883/rtk/api/launch/filter/", data=JSON({"id": filter_config["id"]})).content
+
+time.sleep(5)
+
+rtk.post("http://localhost:8883/rtk/api/delete/sensor/", data=JSON({"id": sensor_config["id"]})).content
+{
+  "id": "s:0028b6ae-01c7-4e56-9657-8c10a9e723ac",
+
+  "client_type": "mqtt",
+  "gen_type": "data",
+  "data_model": "apartment",
+
+  "client": {
+      "host": "iot.eclipse.org",
+      "port": "1883",
+      "client_id": "s:0028b6ae-01c7-4e56-9657-8c10a9e723ac",
+      "clean_session": true,
+      "userdata": null,
+      "transport": "tcp",
+      "protocol": 4,
+      "subscriptions": [],
+      "topics": ["/rtk/mqtt/s:0028b6ae-01c7-4e56-9657-8c10a9e723ac"]
+  },
+
+  "generator": {
+    "path": "./data/apt15074_sensor.csv",
+    "wait": 1.0
+  }
+
+}
+
+# t = lambda x, l=-0.3: (x**l - 1.0)/l
+# z = np.linspace(-2, 2, 100)
+# plt.plot(z, t(z))
+# plt.show()
+
+
+g = lambda x: x**2
+
+
+class Bracket(object):
+    def __init__(self, func=None, step=1e-4, max_iter=10):
+        self._f = func
+        self._step = step
+        self._max_iter = max_iter
+
+    def wrap(self, func, *args, **kwargs):
+        if len(args) == 0 and len(kwargs)==0:
+            self._f = lambda x: func(x)
+        elif len(args) == 0 and len(kwargs) > 0:
+            self._f = lambda x, **kwargs: func(x, **kwargs)
+        elif len(args) == 0 and len(kwargs) > 0:
+            self._f = lambda x, *args: func(x, *args)
+        else:
+            self._f = lambda x, *args, **kwargs: func(x, *args, **kwargs)
+
+    def search(self, a0, an):
+        ai, ak, i = a0, an, 0
+        fi, fk = self._f(ai), self._f(ak)
+        while (fi * fk > 0.0) and (i < self._max_iter):
+            if abs(fi) < abs(fk):
+                ai += self._step * (ai - ak)
+                fi = self._f(ai)
+            else:
+                ak += self._step * (ak - ai)
+                fk = self._f(ak)
+            i += 1
+            print fi, fk
+        return ai, ak, i
+
+
+b = Bracket()
+b.wrap(g)
+print b.search(0, 5)
+
+
+from apogee.models.ann import BaseEchoStateNetwork
+import numpy as np
+import apogee as ap
+from apogee.models.ann.esn_o import EchoStateNetwork
+import matplotlib.pyplot as plt
+
+k = 500
+x = np.ones((k, 1))
+y = np.sin(np.linspace(0.0, np.pi, k))
+
+b = BaseEchoStateNetwork(1, 100, 1)
+e = EchoStateNetwork(1, 100, 1)
+b.fit(x, y)
+h = e.fit(x, y)
+
+print ap.rmse(y, h)
+
+plt.subplot(3, 1, 1)
+plt.plot(y, "k.")
+plt.plot(h, "r--")
+plt.subplot(3, 1, 2)
+plt.plot(b.states)
+plt.subplot(3, 1, 3)
+plt.plot(e.states)
+plt.show()
+
+
+from rtk import __version__
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import apogee as ap
+from scipy.stats import boxcox
+from scipy.optimize import bracket
+# print __version__
+
+from pykalman import KalmanFilter as KF2
+
+f = pd.DataFrame.from_csv("./data/apt15074_sensor.csv")
+arr = np.array(f[["temp", "rh"]])
+# k = ap.KalmanFilter(n=2, m=2, qs=5.0, rs=5.0)
+k = ap.KalmanFilter(n=2, m=2, qs=5.0, rs=1.0)
+# k.xh = np.array([71.13134028,  24.04604036])
+# k.Ph = np.array([[0.00328807, -0.00020317], [-0.00020317,  0.02816589]])
+"""
+
+[ 71.13134028  24.04604036] [[ 0.00328807 -0.00020317]
+ [-0.00020317  0.02816589]] [[ 0.01539573 -0.00473833]
+ [-0.00473833  0.23926482]]
+
+"""
+
+#print k.filter_step(arr[0])
+# print k.xh, k.Ph
+for i in range(400):
+    k.filter(arr[i])
+x_min, x_max = np.min(arr[:, 0][:400]), np.max(arr[:, 0][:400])
+y_min, y_max = np.min(arr[:, 1][:400]), np.max(arr[:, 1][:400])
+print x_min, x_max, y_min, y_max
+plt.imshow(ap.MVNormal(k.x.T, k.P).mesh((np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100))))
+
+print ap.MVNormal(k.x.T, k.P).mesh((np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100)))
+
+
+#plt.contour(ap.MVNormal(k.x.T, k.P).mesh((np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100))).T)
+#k.filter(arr[400:])
+# print k.x, k.P
+#x_min, x_max = np.min(arr[:, 0]), np.max(arr[:, 0])
+#y_min, y_max = np.min(arr[:, 1]), np.max(arr[:, 1])
+# print x_min, x_max
+# print ap.MVNormal([74.0, 33.0], [[50.0, 0.0], [0.0, 50.0]]).mesh((np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100))).shape
+# plt.contour(ap.MVNormal(k.x.T, k.P).mesh((np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100))))
+#plt.colorbar()
+# plt.scatter(arr[:, 0], arr[:, 1],s=5)
+#plt.xlim(40, 95)
+#plt.ylim(10, 90)
+plt.show()
+
+#plt.subplot(2, 1, 1)
+#plt.plot(arr)
+#plt.plot(k.filter(arr))
+#plt.subplot(2, 1, 2)
+#plt.plot(np.sum(k.likelihood(arr), axis=1))
+#plt.show()
