@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# from django.shortcuts import render_to_response
 import datetime
 from django.views.decorators.clickjacking import xframe_options_exempt, xframe_options_deny
 from .app_settings import *

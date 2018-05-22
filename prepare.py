@@ -11,8 +11,7 @@ def change_secret_key(dir="RTKWebApp", file="settings.py"):
     path = os.path.join(dir, file)
     key = generate_secret_key()
     data = open(path).read()
-    data = re.sub(r'__DEFAULT_SECRET_KEY__', key, data)
-    # data = data.format(key=key)
+    data = re.sub(r'__SECRET_KEY__', key, data)
     open(path, "w").write(data)
 
 
