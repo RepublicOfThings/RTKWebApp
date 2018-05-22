@@ -12,8 +12,8 @@ import sys
 from django.core.wsgi import get_wsgi_application
 
 # sys.path.append('/home/republicuser/djangostack-2.0.3-0/apps/django/django_projects')
-sys.path.append('/home/republicuser/djangostack-2.0.3-0/apps/django/django_projects/RTKWebApp/')
-os.environ.setdefault("PYTHON_EGG_CACHE", "/home/republicuser/djangostack-2.0.3-0/apps/django/django_projects/RTKWebApp/egg_cache")
+sys.path.append('/home/republicuser/djangostack-2.0.3-0/apps/django/django_projects/{project}/')
+os.environ.setdefault("PYTHON_EGG_CACHE", "/home/republicuser/djangostack-2.0.3-0/apps/django/django_projects/{project}/egg_cache")
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "{app_name}.settings"
 
