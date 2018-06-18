@@ -24,7 +24,7 @@ SECRET_KEY = '{__SECRET_KEY__}'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-LOCAL = True
+LOCAL = False
 ALLOWED_HOSTS = ["smeiling.co.uk", "www.smeiling.co.uk", "localhost", "0.0.0.0", "127.0.0.1"]
 
 # Application definition
