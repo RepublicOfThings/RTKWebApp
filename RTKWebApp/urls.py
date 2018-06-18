@@ -19,12 +19,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-handler400 = 'webapp.views.handler400'
-handler403 = 'webapp.views.handler403'
-handler404 = 'webapp.views.handler404'
-handler500 = 'webapp.views.handler500'
+handler400 = '{__WEBAPP__}.views.handler400'
+handler403 = '{__WEBAPP__}.views.handler403'
+handler404 = '{__WEBAPP__}.views.handler404'
+handler500 = '{__WEBAPP__}.views.handler500'
 
 urlpatterns = [
-    url(r'^', include('webapp.urls')),
+    url(r'^', include('{__WEBAPP__}.urls')),
     url(r'^admin/', admin.site.urls),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

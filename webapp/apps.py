@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class RtkappConfig(AppConfig):
-    name = 'webapp'
+    name = '{__WEBAPP__}'

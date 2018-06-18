@@ -1,13 +1,13 @@
 {% block navigation %}
     {% load static %}
     <!--navbar-light -->
-    <nav class="navbar navbar-toggleable-md fixed-top navbar-light nav-bar-rtk">
+    <nav class="navbar navbar-toggleable-md fixed-top" style="background-color:#333; color: #FFFFFF;">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="navbar-header">
-            <a class="navbar-brand" href="/" style="padding: 0">
+            <a class="navbar-brand" href="/" style="padding: 0;">
                 <img class="navbar-brand align-top img-responsive" style="max-height: 60px; max-width: 120px;" src={% static "app/SmEILing.png" %}>
             </a>
         </div>
@@ -16,8 +16,8 @@
                 <img class="navbar-brand align-top img-responsive" style="max-height: 30px;" src={% static "app/city_verve_logo_resize_2.png" %}>
             </a>
         </div>-->
-        <div class="collapse navbar-collapse" id="mainNavigation">
-            <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse" id="mainNavigation" style="color: #999;">
+            <ul class="navbar-nav mr-auto" style="color: #999;">
                 <li class="nav-item nav-item-rtk">
                     <a class="nav-link nav-link-rtk" href="{% url "home" %}">Home</a>
                 </li>

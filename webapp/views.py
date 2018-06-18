@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
 from django.views.decorators.clickjacking import xframe_options_exempt, xframe_options_deny
-from .app_settings import *
+from {__WEBAPP__}.app_settings import *
 # Create your views here.
 # incident_posture_clone_v10
 

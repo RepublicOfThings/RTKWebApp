@@ -24,8 +24,8 @@ SECRET_KEY = '{__SECRET_KEY__}'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ["smeiling.co.uk", "www.smeiling.co.uk", "localhost", "0.0.0.0"]
+LOCAL = True
+ALLOWED_HOSTS = ["smeiling.co.uk", "www.smeiling.co.uk", "localhost", "0.0.0.0", "127.0.0.1"]
 
 # Application definition
 
@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'webapp'
+    '{__WEBAPP__}'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +49,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = '{__PROJECT__}.urls'
+if LOCAL:
+    ROOT_URLCONF = 'RTKWebApp.urls'
+else:
+    ROOT_URLCONF = '{__PROJECT__}.urls'
 
 TEMPLATES = [
     {
@@ -67,8 +70,10 @@ TEMPLATES = [
     },
 ]
 
-
-WSGI_APPLICATION = '{__PROJECT__}.wsgi.application'
+if LOCAL:
+    WSGI_APPLICATION = 'RTKWebApp.wsgi.application'
+else:
+    WSGI_APPLICATION = '{__PROJECT__}.wsgi.application'
 
 
 # Database
@@ -115,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "webapp/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, "{__WEBAPP__}/static/")
 STATIC_URL = "/static/"
 
 LOGIN_REDIRECT_URL = 'home'

@@ -11,19 +11,19 @@
 }
 
 .nav-item-rtk {
-    color: #333;
+    color: #FFF;
     font-size: 20px;
     padding-left: 20px;
     font-weight: normal;
 }
 
 .nav-link-rtk {
-    color: #333;
+    color: #FFF;
     font-weight: normal;
 }
 
 .nav-link-rtk a{
-    color: #333;
+    color: #FFF;
     font-size: 20px;
     padding-left: 20px;
     font-weight: normal;
@@ -36,8 +36,8 @@
     font-weight: normal;
 }
 .nav-bar-rtk {
-    background-color: #FFF;
-    color: #333;
+    background-color: #333;
+    color: #FFF;
 }
 
 .jumbotron-content-rtk {
@@ -48,7 +48,7 @@
     padding-left: 15px;
     color: inherit;
     background-color: #FFF;
-    color: #333;
+    color: #FFF;
     text-align: center;
     border-radius: 6px;
 }
@@ -90,7 +90,7 @@
 }
 
 .text-primary-rtk {
-    color: #333;
+    color: #FFF;
 }
 
 .text-secondary-rtk {
