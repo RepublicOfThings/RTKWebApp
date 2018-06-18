@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="319120ea-55de-4904-931e-07183eef6586" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/webapp/static/app/CityVerve_Logo_on_black.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webapp/static/app/rot_logo_new.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/httpd-app.conf" beforeDir="false" afterPath="$PROJECT_DIR$/conf/httpd-app.conf" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -86,20 +85,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapp/templates/registration/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="167" column="49" lean-forward="true" selection-start-line="167" selection-start-column="49" selection-end-line="167" selection-end-column="49" />
+            <state relative-caret-position="120">
+              <caret line="157" column="30" selection-start-line="157" selection-start-column="30" selection-end-line="157" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="httpd-app.conf" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/httpd-app.conf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RTKWebApp/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="12" lean-forward="true" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+            <state relative-caret-position="390">
+              <caret line="70" column="1" selection-start-line="70" selection-start-column="1" selection-end-line="70" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -134,7 +142,6 @@
         <option value="$PROJECT_DIR$/configure.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/webapp/urls.py" />
-        <option value="$PROJECT_DIR$/conf/httpd-app.conf" />
         <option value="$PROJECT_DIR$/webapp/templates/common/footer.html" />
         <option value="$PROJECT_DIR$/prepare.py" />
         <option value="$PROJECT_DIR$/conf/httpd-vhosts.conf" />
@@ -146,8 +153,9 @@
         <option value="$PROJECT_DIR$/webapp/views.py" />
         <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/webapp/templates/common/topnav.html" />
-        <option value="$PROJECT_DIR$/RTKWebApp/settings.py" />
         <option value="$PROJECT_DIR$/webapp/templates/registration/login.html" />
+        <option value="$PROJECT_DIR$/conf/httpd-app.conf" />
+        <option value="$PROJECT_DIR$/RTKWebApp/settings.py" />
       </list>
     </option>
   </component>
@@ -192,6 +200,19 @@
               <item name="RTKWebApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="RTKWebApp" type="462c0819:PsiDirectoryNode" />
               <item name="RTKWebApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RTKWebApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RTKWebApp" type="462c0819:PsiDirectoryNode" />
+              <item name="RTKWebApp" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RTKWebApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RTKWebApp" type="462c0819:PsiDirectoryNode" />
+              <item name="RTKWebApp" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RTKWebApp" type="b2602c69:ProjectViewProjectNode" />
@@ -250,6 +271,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/RTKWebApp/static/app" />
       <recent name="$PROJECT_DIR$/webapp/static/app" />
     </key>
   </component>
@@ -363,7 +385,21 @@
       <option name="project" value="LOCAL" />
       <updated>1529344577207</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added additional config settings. Added fix for namespace bug. Graphical corrections.">
+      <created>1529346024272</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1529346024272</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added additional config settings. Added fix for namespace bug. Graphical corrections.">
+      <created>1529347046707</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1529347046707</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -376,8 +412,8 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3369697" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22603719" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3369697" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22603719" />
       <window_info anchor="right" id="R Packages" order="3" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="R Graphics" order="3" />
@@ -621,13 +657,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/httpd-app.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/clip">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -753,13 +782,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RTKWebApp/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="12" lean-forward="true" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/templates/common/topnav.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
@@ -775,8 +797,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webapp/templates/registration/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="167" column="49" lean-forward="true" selection-start-line="167" selection-start-column="49" selection-end-line="167" selection-end-column="49" />
+        <state relative-caret-position="120">
+          <caret line="157" column="30" selection-start-line="157" selection-start-column="30" selection-end-line="157" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/httpd-app.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RTKWebApp/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="70" column="1" selection-start-line="70" selection-start-column="1" selection-end-line="70" selection-end-column="1" />
         </state>
       </provider>
     </entry>
